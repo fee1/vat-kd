@@ -1,0 +1,76 @@
+a:link {
+	text-decoration: none;
+	color: black;
+}
+a:visited {
+	text-decoration: none;
+	color: #1B5978;
+}
+a:hover {
+	text-decoration: underline;
+	color: red;
+
+}
+p{
+	line-height:200%;
+}
+.tool-add{
+	background-image:url('../images/edit_add.png') !important
+}
+.tool-edit{
+	background-image:url('../images/pencil.png') !important
+}
+.tool-delete{
+	background-image:url('../images/edit_remove.png') !important
+}
+.tool-cut{
+	background-image:url('../images/cut.png') !important
+}
+.tool-save{
+	background-image:url('../images/filesave.png') !important
+}
+.tool-find{
+	background-image:url('../images/kmag.png') !important
+}
+.nav-opt{
+	background-image:url('../images/kcmsystem.png') !important
+}
+.nav-config{
+	background-image:url('../images/wizard.png') !important
+}
+
+.header{
+	background:url('images/topback.gif') repeat-x;
+	background1:#A1C4E4;
+	position:relative;
+	height:50px;
+	width:100%;
+	padding-left1:5px;
+}
+
+.toptitle{
+	position:absolute;
+	top:10px;
+	left:5px;
+	color:#fff;
+	font-size:16px;
+	font-weight:bold;
+	padding:6px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+	font-weight: bold;
+	padding: 5px 5px;
+}
+
+.tabs-selected a { background-color: #8FBCE8 !important; color: #ffffff !important; }
+
+body{
+	visibility: hidden;
+}
+
+.datagrid-header .datagrid-cell span{
+	font-size: 14px
+}

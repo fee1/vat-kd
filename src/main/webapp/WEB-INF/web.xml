@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+    <!--400错误-->
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error/index.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/index.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/index.jsp</location>
+    </error-page>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application-*.xml, classpath:applicationContext.xml</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>springServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 配置springMVC需要加载的配置文件
+			Mybatis - > spring -> springmvc
+		 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+<!--            <param-value>classpath:applicationContext.xml</param-value>-->
+            <param-value>classpath:application-*.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springServlet</servlet-name>
+        <!-- 默认匹配所有的请求 -->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!--不与服务器交互过期时间-->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>/WEB-INF/jsp/home/login.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.dao.TYhDao">
+  <resultMap id="BaseResultMap" type="com.bw.model.TYh">
+    <result column="yhid" jdbcType="INTEGER" property="yhid" />
+    <result column="dlyhid" jdbcType="VARCHAR" property="dlyhid" />
+    <result column="yhmc" jdbcType="VARCHAR" property="yhmc" />
+    <result column="yhmm" jdbcType="VARCHAR" property="yhmm" />
+    <result column="yhjg" jdbcType="INTEGER" property="yhjg" />
+    <result column="xb" jdbcType="VARCHAR" property="xb" />
+    <result column="lrsj" jdbcType="TIMESTAMP" property="lrsj" />
+    <result column="lrry" jdbcType="INTEGER" property="lrry" />
+    <result column="xgsj" jdbcType="TIMESTAMP" property="xgsj" />
+    <result column="xgry" jdbcType="INTEGER" property="xgry" />
+    <result column="roleIds" jdbcType="VARCHAR" property="roleids" />
+    <result column="ztbz" jdbcType="CHAR" property="ztbz" />
+    <result column="dlcws" jdbcType="INTEGER" property="dlcws" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    yhid, dlyhid, yhmc, yhmm, yhjg, xb, lrsj, lrry, xgsj, xgry, roleIds, ztbz, dlcws
+  </sql>
+  <select id="selectByExample" parameterType="com.bw.model.TYhExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_YH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.bw.model.TYhExample">
+    delete from T_YH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bw.model.TYh">
+    insert into T_YH (yhid, dlyhid, yhmc, 
+      yhmm, yhjg, xb, lrsj, 
+      lrry, xgsj, xgry, 
+      roleIds, ztbz, dlcws)
+    values (#{yhid,jdbcType=INTEGER}, #{dlyhid,jdbcType=VARCHAR}, #{yhmc,jdbcType=VARCHAR}, 
+      #{yhmm,jdbcType=VARCHAR}, #{yhjg,jdbcType=INTEGER}, #{xb,jdbcType=VARCHAR}, #{lrsj,jdbcType=TIMESTAMP}, 
+      #{lrry,jdbcType=INTEGER}, #{xgsj,jdbcType=TIMESTAMP}, #{xgry,jdbcType=INTEGER}, 
+      #{roleids,jdbcType=VARCHAR}, #{ztbz,jdbcType=CHAR}, #{dlcws,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bw.model.TYh">
+    insert into T_YH
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yhid != null">
+        yhid,
+      </if>
+      <if test="dlyhid != null">
+        dlyhid,
+      </if>
+      <if test="yhmc != null">
+        yhmc,
+      </if>
+      <if test="yhmm != null">
+        yhmm,
+      </if>
+      <if test="yhjg != null">
+        yhjg,
+      </if>
+      <if test="xb != null">
+        xb,
+      </if>
+      <if test="lrsj != null">
+        lrsj,
+      </if>
+      <if test="lrry != null">
+        lrry,
+      </if>
+      <if test="xgsj != null">
+        xgsj,
+      </if>
+      <if test="xgry != null">
+        xgry,
+      </if>
+      <if test="roleids != null">
+        roleIds,
+      </if>
+      <if test="ztbz != null">
+        ztbz,
+      </if>
+      <if test="dlcws != null">
+        dlcws,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yhid != null">
+        #{yhid,jdbcType=INTEGER},
+      </if>
+      <if test="dlyhid != null">
+        #{dlyhid,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmc != null">
+        #{yhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="yhmm != null">
+        #{yhmm,jdbcType=VARCHAR},
+      </if>
+      <if test="yhjg != null">
+        #{yhjg,jdbcType=INTEGER},
+      </if>
+      <if test="xb != null">
+        #{xb,jdbcType=VARCHAR},
+      </if>
+      <if test="lrsj != null">
+        #{lrsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lrry != null">
+        #{lrry,jdbcType=INTEGER},
+      </if>
+      <if test="xgsj != null">
+        #{xgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgry != null">
+        #{xgry,jdbcType=INTEGER},
+      </if>
+      <if test="roleids != null">
+        #{roleids,jdbcType=VARCHAR},
+      </if>
+      <if test="ztbz != null">
+        #{ztbz,jdbcType=CHAR},
+      </if>
+      <if test="dlcws != null">
+        #{dlcws,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bw.model.TYhExample" resultType="java.lang.Long">
+    select count(*) from T_YH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_YH
+    <set>
+      <if test="record.yhid != null">
+        yhid = #{record.yhid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dlyhid != null">
+        dlyhid = #{record.dlyhid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhmc != null">
+        yhmc = #{record.yhmc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhmm != null">
+        yhmm = #{record.yhmm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yhjg != null">
+        yhjg = #{record.yhjg,jdbcType=INTEGER},
+      </if>
+      <if test="record.xb != null">
+        xb = #{record.xb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lrsj != null">
+        lrsj = #{record.lrsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lrry != null">
+        lrry = #{record.lrry,jdbcType=INTEGER},
+      </if>
+      <if test="record.xgsj != null">
+        xgsj = #{record.xgsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.xgry != null">
+        xgry = #{record.xgry,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleids != null">
+        roleIds = #{record.roleids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ztbz != null">
+        ztbz = #{record.ztbz,jdbcType=CHAR},
+      </if>
+      <if test="record.dlcws != null">
+        dlcws = #{record.dlcws,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_YH
+    set yhid = #{record.yhid,jdbcType=INTEGER},
+      dlyhid = #{record.dlyhid,jdbcType=VARCHAR},
+      yhmc = #{record.yhmc,jdbcType=VARCHAR},
+      yhmm = #{record.yhmm,jdbcType=VARCHAR},
+      yhjg = #{record.yhjg,jdbcType=INTEGER},
+      xb = #{record.xb,jdbcType=VARCHAR},
+      lrsj = #{record.lrsj,jdbcType=TIMESTAMP},
+      lrry = #{record.lrry,jdbcType=INTEGER},
+      xgsj = #{record.xgsj,jdbcType=TIMESTAMP},
+      xgry = #{record.xgry,jdbcType=INTEGER},
+      roleIds = #{record.roleids,jdbcType=VARCHAR},
+      ztbz = #{record.ztbz,jdbcType=CHAR},
+      dlcws = #{record.dlcws,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
