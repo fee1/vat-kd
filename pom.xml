@@ -20,6 +20,8 @@
         <mybatis-spring.version>2.0.3</mybatis-spring.version>
         <junit.version>4.12</junit.version>
         <druid.version>1.1.10</druid.version>
+        <tomcat.version>2.2</tomcat.version>
+        <webserver.port>81</webserver.port>
     </properties>
 
     <dependencies>
@@ -220,6 +222,20 @@
             </resource>
         </resources>
         <finalName>vat</finalName>
+
+        <plugins>
+            <!-- tomcat7插件 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${tomcat.version}</version>
+                <configuration>
+                    <port>${webserver.port}</port>
+                    <path>/${project.artifactId}</path>
+                    <uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 

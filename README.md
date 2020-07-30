@@ -14,6 +14,7 @@ mapper放置了MybatisGenertor生成的xml
 packaging指定打成war包的形式
 build.finalName指定打包生成的名字
 build.resources指定使用maven启动时编译的resource配置文件目录，配合profiles.profile使用。
+plugins.plugin.tomcat7指定了tomcat，使用maven启动时指定了服务的端口号，和项目的编码
 
 ## java目录介绍
 common常用工具类与通用代码
