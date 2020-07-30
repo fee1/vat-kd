@@ -10,34 +10,34 @@ pom添加了相关Spring依赖与log4j依赖，配置了打包的规则，规定
 ```
 
 ## resource目录
-dev开发环境spring配置与jdbc配置  
+dev：开发环境spring配置与jdbc配置  
 
-test测试环境spring配置与jdbc配置  
+test：测试环境spring配置与jdbc配置  
 
-product生产环境spring配置与jdbc配置  
+product：生产环境spring配置与jdbc配置  
 
-mapper放置了MybatisGenertor生成的xml
+mapper：放置了MybatisGenertor生成的xml
 
 ## pom配置
-packaging指定打成war包的形式  
+packaging：指定打成war包的形式  
 
-build.finalName指定打包生成的名字  
+build.finalName：指定打包生成的名字  
 
-build.resources指定使用maven启动时编译的resource配置文件目录，配合profiles.profile使用。  
+build.resources：指定使用maven启动时编译的resource配置文件目录，配合profiles.profile使用。  
 
-plugins.plugin.tomcat7指定了tomcat，使用maven启动时指定了服务的端口号，和项目的编码
+plugins.plugin.tomcat7：指定了tomcat，使用maven启动时指定了服务的端口号，和项目的编码
 
 ## java目录介绍
-common常用工具类与通用代码        
+common：常用工具类与通用代码        
 
-component一些组件，如log接口切面日志        
+component：一些组件，如log接口切面日志        
 
-config一些配置类     
+config：一些配置类     
 
-controller web接口层   
+controller： web接口层   
 
-dao 与数据库交互层  
+dao：与数据库交互层  
 
-model mysql表数据模型与查询example查询类  
+model：mysql表数据模型与查询example查询类  
 
-service 逻辑处理层
+service：逻辑处理层
