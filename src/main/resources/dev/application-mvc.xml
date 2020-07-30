@@ -9,18 +9,26 @@
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+<!--    <context:component-scan base-package="com.bw.config.applicationContextMvc" />-->
+
     <!--开启mvc注解模式-->
     <!--自动注册DefaultAnootationHandlerMapping,AnotationMethodHandlerAdapter -->
     <!--提供一些列：数据绑定，数字和日期的format @NumberFormat, @DateTimeFormat, xml,json默认读写支持-->
     <mvc:annotation-driven/>
 
-    <!--配置mvc扫面的包-->
+    <!--配置mvc controller扫描-->
     <context:component-scan base-package="com.bw.controller" />
+
+    <!-- 静态资源映射 -->
+    <mvc:resources mapping="/**" location="/" cache-period="31536000"/>
+
+    <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+    <mvc:default-servlet-handler />
 
     <!--配置jsp-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

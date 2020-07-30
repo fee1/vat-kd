@@ -1,15 +1,11 @@
 package com.zxf;
 
-import com.bw.config.ApplicationContextService;
 import com.bw.dao.AdminActivitiesDao;
 import com.bw.model.AdminActivities;
 import com.bw.model.AdminActivitiesExample;
-import com.bw.service.ServiceTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,7 +17,7 @@ import java.util.List;
  * @date 2020/07/21
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:application-*.xml"})
+@ContextConfiguration(locations = {"classpath*:applicationContext.xml", "classpath*:application-*.xml"})
 //@ContextConfiguration(locations = {"classpath*:applicationContext.xml"})
 public class DatabaseTest {
 
