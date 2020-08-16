@@ -11,13 +11,13 @@
 
     <context:property-placeholder location="classpath:jdbc.properties" />
 
-    <!--配置数据库连接池-->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <!--配置数据库连接池读-->
+    <bean id="dataSourceForRead" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!--可不写，durid默认自动根据url识别-->
-        <property name="driverClassName" value="${jdbc.driveClassName}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.read.driveClassName}" />
+        <property name="url" value="${jdbc.read.url}" />
+        <property name="username" value="${jdbc.read.username}" />
+        <property name="password" value="${jdbc.read.password}" />
 
         <!--配置初始化大小，最小、最大-->
         <property name="initialSize" value="1" />
@@ -36,6 +36,41 @@
         <!--配置监控统计拦截的filters-->
         <property name="filters" value="stat" />
     </bean>
+    <!--配置数据库连接池写-->
+    <bean id="dataSourceForWrite" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--可不写，durid默认自动根据url识别-->
+        <property name="driverClassName" value="${jdbc.write.driveClassName}" />
+        <property name="url" value="${jdbc.write.url}" />
+        <property name="username" value="${jdbc.write.username}" />
+        <property name="password" value="${jdbc.write.password}" />
+
+        <!--配置初始化大小，最小、最大-->
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="3" />
+        <property name="maxActive" value="20" />
+
+        <!--配置获取连接等待超时的时间-->
+        <property name="maxWait" value="60000" />
+
+        <!--配置间隔多久才进行以此检测，检测需要关闭的空闲连接，单位式毫秒-->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!--配置一个连接在池中最小的生存时间，单位是毫秒-->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <!--配置监控统计拦截的filters-->
+        <property name="filters" value="stat" />
+    </bean>
+    <!--自定义存取数据源-->
+    <bean id="dataSource" class="com.bw.spring.datasource.CustomDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="master" value-ref="dataSourceForRead" />
+                <entry key="slave" value-ref="dataSourceForWrite" />
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSourceForWrite" />
+    </bean>
 
     <!--配置sql sessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -49,6 +84,30 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
     </bean>
 
+
+    <!--配置sql sessionFactoryForRead-->
+<!--    <bean id="sqlSessionFactoryForRead" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        &lt;!&ndash;配置数据库连接池&ndash;&gt;-->
+<!--        <property name="dataSource" ref="dataSourceForRead" />-->
+<!--        &lt;!&ndash;配置mybatis全局配置文件mybatis-config.xml&ndash;&gt;-->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml" />-->
+<!--        &lt;!&ndash;扫描model包&ndash;&gt;-->
+<!--        <property name="typeAliasesPackage" value="com.bw.model" />-->
+<!--        &lt;!&ndash;扫描sql xml配置文件&ndash;&gt;-->
+<!--        <property name="mapperLocations" value="classpath:mapper/*.xml" />-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;配置sql sessionFactoryForWrite&ndash;&gt;-->
+<!--    <bean id="sqlSessionFactoryForWrite" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        &lt;!&ndash;配置数据库连接池&ndash;&gt;-->
+<!--        <property name="dataSource" ref="dataSourceForWrite" />-->
+<!--        &lt;!&ndash;配置mybatis全局配置文件mybatis-config.xml&ndash;&gt;-->
+<!--        <property name="configLocation" value="classpath:mybatis-config.xml" />-->
+<!--        &lt;!&ndash;扫描model包&ndash;&gt;-->
+<!--        <property name="typeAliasesPackage" value="com.bw.model" />-->
+<!--        &lt;!&ndash;扫描sql xml配置文件&ndash;&gt;-->
+<!--        <property name="mapperLocations" value="classpath:mapper/*.xml" />-->
+<!--    </bean>-->
+
     <!--配置扫描dao接口包-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--注入sql sessionFactory-->
@@ -56,6 +115,23 @@
         <!--扫描的dao接口包位置-->
         <property name="basePackage" value="com.bw.dao" />
     </bean>
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        &lt;!&ndash;注入sql sessionFactory&ndash;&gt;-->
+<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryForRead" />-->
+<!--        &lt;!&ndash;扫描的dao接口包位置&ndash;&gt;-->
+<!--        <property name="basePackage" value="com.bw.dao" />-->
+<!--        &lt;!&ndash;读数据源注解类&ndash;&gt;-->
+<!--        <property name="annotationClass" value="com.bw.customannotations.ReadDatasource" />-->
+<!--    </bean>-->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        &lt;!&ndash;注入sql sessionFactory&ndash;&gt;-->
+<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryForWrite" />-->
+<!--        &lt;!&ndash;扫描的dao接口包位置&ndash;&gt;-->
+<!--        <property name="basePackage" value="com.bw.dao" />-->
+<!--        &lt;!&ndash;写数据源注解类&ndash;&gt;-->
+<!--        <property name="annotationClass" value="com.bw.customannotations.WriteDatasource" />-->
+<!--    </bean>-->
+
 
 
 </beans>

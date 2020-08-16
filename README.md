@@ -36,8 +36,19 @@ config：一些配置类
 
 controller： web接口层   
 
-dao：与数据库交互层  
+customannotations：自定义注解类
+
+dao：与数据库交互层
 
 model：mysql表数据模型与查询example查询类  
 
 service：逻辑处理层
+
+spring：对spring配置类型进行地自定义类
+
+## spring配置文件介绍
+application-mvc：springmvc配置
+
+appliaction-service：spring配置
+
+application-dao：dao层配置，数据源配置等。（配置了读写数据源配置，两种方式，其中一种处于注释状态，执行选择）
