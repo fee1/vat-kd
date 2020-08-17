@@ -16,11 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@Configuration
-//@ComponentScans({@ComponentScan("com.bw.dao"),@ComponentScan("com.bw.service")})
-@ComponentScan({"com.bw.dao", "com.bw.service"})
-@PropertySource({"classpath:jdbc.properties", "classpath:ldap.properties", "classpath:parameter.properties"})
-@EnableTransactionManagement//开启注解式事务
+//@Configuration
+////@ComponentScans({@ComponentScan("com.bw.dao"),@ComponentScan("com.bw.service")})
+//@ComponentScan({"com.bw.dao", "com.bw.service"})
+//@PropertySource({"classpath:jdbc.properties", "classpath:ldap.properties", "classpath:parameter.properties"})
+//@EnableTransactionManagement//开启注解式事务
 public class ApplicationContextService {
 
     @Value("${jdbc.driveClassName}")

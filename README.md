@@ -51,4 +51,4 @@ application-mvc：springmvc配置
 
 appliaction-service：spring配置
 
-application-dao：dao层配置，数据源配置等。（配置了读写数据源配置，两种方式，其中一种处于注释状态，执行选择）
+application-dao：dao层配置，数据源配置等。（配置了读写数据源配置，两种方式，其中一种处于注释状态，自行选择）

@@ -6,10 +6,6 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--配置类-->
-<!--    <context:component-scan base-package="com.bw.config.applicationContextDao"/>-->
-
-    <context:property-placeholder location="classpath:jdbc.properties" />
 
     <!--配置数据库连接池读-->
     <bean id="dataSourceForRead" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -61,7 +57,7 @@
         <!--配置监控统计拦截的filters-->
         <property name="filters" value="stat" />
     </bean>
-    <!--自定义存取数据源-->
+    <!--自定义存取数据源 《读写锋分离的第二种方式》-->
     <bean id="dataSource" class="com.bw.spring.datasource.CustomDataSource">
         <property name="targetDataSources">
             <map key-type="java.lang.String">
@@ -72,7 +68,7 @@
         <property name="defaultTargetDataSource" ref="dataSourceForWrite" />
     </bean>
 
-    <!--配置sql sessionFactory-->
+    <!--配置sql sessionFactory 《读写分离的第二种方式》-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--配置数据库连接池-->
         <property name="dataSource" ref="dataSource" />
@@ -85,7 +81,7 @@
     </bean>
 
 
-    <!--配置sql sessionFactoryForRead-->
+    <!--配置sql sessionFactoryForRead 《读写分离的第一种方式》-->
 <!--    <bean id="sqlSessionFactoryForRead" class="org.mybatis.spring.SqlSessionFactoryBean">-->
 <!--        &lt;!&ndash;配置数据库连接池&ndash;&gt;-->
 <!--        <property name="dataSource" ref="dataSourceForRead" />-->
@@ -96,7 +92,7 @@
 <!--        &lt;!&ndash;扫描sql xml配置文件&ndash;&gt;-->
 <!--        <property name="mapperLocations" value="classpath:mapper/*.xml" />-->
 <!--    </bean>-->
-<!--    &lt;!&ndash;配置sql sessionFactoryForWrite&ndash;&gt;-->
+<!--    &lt;!&ndash;配置sql sessionFactoryForWrite  《读写分离的第一种方式》&ndash;&gt;-->
 <!--    <bean id="sqlSessionFactoryForWrite" class="org.mybatis.spring.SqlSessionFactoryBean">-->
 <!--        &lt;!&ndash;配置数据库连接池&ndash;&gt;-->
 <!--        <property name="dataSource" ref="dataSourceForWrite" />-->
@@ -108,20 +104,21 @@
 <!--        <property name="mapperLocations" value="classpath:mapper/*.xml" />-->
 <!--    </bean>-->
 
-    <!--配置扫描dao接口包-->
+    <!--配置扫描dao接口包 《读写分离的第二种方式》-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--注入sql sessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
         <!--扫描的dao接口包位置-->
         <property name="basePackage" value="com.bw.dao" />
     </bean>
+    <!--配置扫描dao接口包 《读写分离的第一种方式》-->
 <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
 <!--        &lt;!&ndash;注入sql sessionFactory&ndash;&gt;-->
 <!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryForRead" />-->
 <!--        &lt;!&ndash;扫描的dao接口包位置&ndash;&gt;-->
 <!--        <property name="basePackage" value="com.bw.dao" />-->
 <!--        &lt;!&ndash;读数据源注解类&ndash;&gt;-->
-<!--        <property name="annotationClass" value="com.bw.customannotations.ReadDatasource" />-->
+<!--        <property name="annotationClass" value="com.bw.customannotations.DatasourceRead" />-->
 <!--    </bean>-->
 <!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
 <!--        &lt;!&ndash;注入sql sessionFactory&ndash;&gt;-->
@@ -129,7 +126,7 @@
 <!--        &lt;!&ndash;扫描的dao接口包位置&ndash;&gt;-->
 <!--        <property name="basePackage" value="com.bw.dao" />-->
 <!--        &lt;!&ndash;写数据源注解类&ndash;&gt;-->
-<!--        <property name="annotationClass" value="com.bw.customannotations.WriteDatasource" />-->
+<!--        <property name="annotationClass" value="com.bw.customannotations.DatasourceWrite" />-->
 <!--    </bean>-->
 
 
