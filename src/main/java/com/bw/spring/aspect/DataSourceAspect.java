@@ -9,6 +9,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
@@ -21,7 +24,9 @@ import java.lang.reflect.Method;
  */
 @Component
 @Aspect
-public class DataSourceAspect {
+public class DataSourceAspect implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
 
     private final static Logger log = LoggerFactory.getLogger(DataSourceAspect.class);
 
@@ -34,7 +39,7 @@ public class DataSourceAspect {
             //获取从库数量
 //            Field field = ReflectionUtils.findField(AbstractRoutingDataSource.class, "resolvedDataSources");
 //            field.setAccessible(true);
-//            Integer index = (Integer) field.get(this);
+//            Integer index = (Integer) field.get(applicationContext.getBean("CustomDataSource"));
 //            if (CustomDataSourceHolder.getAtomicInteger() >= index){
 //                CustomDataSourceHolder.setAtomicInteger();
 //            }
@@ -42,8 +47,8 @@ public class DataSourceAspect {
             //判断方法是否存在Datasource注解
             if (method != null && method.isAnnotationPresent(DataSource.class)){
                 DataSource dataSource = method.getAnnotation(DataSource.class);
-                CustomDataSourceHolder.putDataSourceKey(dataSource.value());
-//                CustomDataSourceHolder.putDataSourceKey(dataSource.value()+ CustomDataSourceHolder.getAtomicInteger());
+//                CustomDataSourceHolder.putDataSourceKey(dataSource.value());
+                CustomDataSourceHolder.putDataSourceKey(dataSource.value()+ CustomDataSourceHolder.getAtomicInteger());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -51,4 +56,7 @@ public class DataSourceAspect {
         }
     }
 
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 }
