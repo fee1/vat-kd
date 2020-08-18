@@ -9,8 +9,11 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
@@ -28,11 +31,19 @@ public class DataSourceAspect {
     @Before(value = "pointCut()", argNames = "joinPoint")
     public void before(JoinPoint joinPoint){
         try {
+            //获取从库数量
+//            Field field = ReflectionUtils.findField(AbstractRoutingDataSource.class, "resolvedDataSources");
+//            field.setAccessible(true);
+//            Integer index = (Integer) field.get(this);
+//            if (CustomDataSourceHolder.getAtomicInteger() >= index){
+//                CustomDataSourceHolder.setAtomicInteger();
+//            }
             Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
             //判断方法是否存在Datasource注解
             if (method != null && method.isAnnotationPresent(DataSource.class)){
                 DataSource dataSource = method.getAnnotation(DataSource.class);
                 CustomDataSourceHolder.putDataSourceKey(dataSource.value());
+//                CustomDataSourceHolder.putDataSourceKey(dataSource.value()+ CustomDataSourceHolder.getAtomicInteger());
             }
         }catch (Exception e){
             e.printStackTrace();
