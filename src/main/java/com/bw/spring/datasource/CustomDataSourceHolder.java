@@ -7,11 +7,11 @@ public class CustomDataSourceHolder {
 
     private final static ThreadLocal<String> holder = new ThreadLocal<String>();
 
-    public static void putDataSource(String name){
+    public static void putDataSourceKey(String name){
         holder.set(name);
     }
 
-    public static String getDataSource(){
+    public static String getDataSourceKey(){
         return holder.get();
     }
 

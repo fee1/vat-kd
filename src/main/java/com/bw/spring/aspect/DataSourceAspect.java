@@ -32,7 +32,7 @@ public class DataSourceAspect {
             //判断方法是否存在Datasource注解
             if (method != null && method.isAnnotationPresent(DataSource.class)){
                 DataSource dataSource = method.getAnnotation(DataSource.class);
-                CustomDataSourceHolder.putDataSource(dataSource.value());
+                CustomDataSourceHolder.putDataSourceKey(dataSource.value());
             }
         }catch (Exception e){
             e.printStackTrace();
