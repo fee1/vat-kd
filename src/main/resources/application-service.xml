@@ -13,7 +13,9 @@
 <!--    <context:component-scan base-package="com.bw.config" />-->
 
     <!--注册例如AutowiredAnnotationBeanPostProcessor注解，这样我们就能够使用@Autowired注解，
-    通过在bean创建时执行AutowiredAnnotationBeanPostProcessor扫描当前的bean那些属性被@Autowired注解了，然后注入bean-->
+    通过在bean创建时执行AutowiredAnnotationBeanPostProcessor扫描当前的bean那些属性被@Autowired注解了，然后注入bean
+    有了component-scan这个注解也就可以移除了
+    -->
     <context:annotation-config />
     <!--扫描注解的位置-->
     <context:component-scan base-package="com.bw.service,com.bw.spring"/>
