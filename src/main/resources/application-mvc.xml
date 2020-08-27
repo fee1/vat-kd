@@ -18,7 +18,7 @@
     <mvc:annotation-driven/>
 
     <!--配置mv controller注解扫描扫描-->
-    <context:component-scan base-package="com.bw.controller" />
+    <context:component-scan base-package="com.bw.controller,com.bw.interceptor" />
 
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/**" location="/" cache-period="31536000"/>
@@ -31,5 +31,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+<!--    拦截器配置-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="loginInterceptor" class="com.bw.interceptor.LoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
